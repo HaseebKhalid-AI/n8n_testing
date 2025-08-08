@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>RAG Chatbot Test</title>
+<style>
+body { font-family: Arial; max-width: 600px; margin: auto; padding: 20px; }
+textarea, input { width: 100%; padding: 10px; margin-top: 10px; }
+button { padding: 10px 15px; margin-top: 10px; }
+.chat-box { border: 1px solid #ccc; padding: 10px; margin-top: 10px; height: 300px; overflow-y: scroll; }
+</style>
+</head>
+<body>
+<h2>RAG Chatbot</h2>
+<div class="chat-box" id="chat"></div>
+<input type="text" id="message" placeholder="Ask something...">
+<button onclick="sendMessage()">Send</button>
+
+<script>
+async function sendMessage() {
+    const msg = document.getElementById("message").value;
+    if (!msg) return;
+    document.getElementById("chat").innerHTML += `<p><b>You:</b> ${msg}</p>`;
+    document.getElementById("message").value = "";
+
+    const res = await fetch("https://haseebkhalid.app.n8n.cloud/webhook/7dfcd9fa-7857-45cb-8040-e08d425ce824", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: msg })
+    });
+    const data = await res.json();
+    document.getElementById("chat").innerHTML += `<p><b>Bot:</b> ${data.answer || "No response"}</p>`;
+}
+</script>
+</body>
+</html>
