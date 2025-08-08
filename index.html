@@ -22,7 +22,7 @@ async function sendMessage() {
     document.getElementById("chat").innerHTML += `<p><b>You:</b> ${msg}</p>`;
     document.getElementById("message").value = "";
 
-    const res = await fetch("YOUR_WEBHOOK_URL", {
+    const res = await fetch("https://haseebkhalid.app.n8n.cloud/webhook/7dfcd9fa-7857-45cb-8040-e08d425ce824", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: msg })
@@ -33,3 +33,4 @@ async function sendMessage() {
 </script>
 </body>
 </html>
+
